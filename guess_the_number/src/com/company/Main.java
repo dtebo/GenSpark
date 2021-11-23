@@ -1,72 +1,88 @@
 package com.company;
 
-import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
+    static Scanner sc = new Scanner(System.in);
+
+    public static int generateRandom(){
+        return ThreadLocalRandom.current().nextInt(1, 20);
+    }
+
+    public static String getName(){
+        System.out.println("Hello! What is your name? ");
+        return sc.next();
+    }
+
+    public static boolean feedback(int guess, int realNum){
+        if(guess > realNum){
+            System.out.println("\r\nYour guess is too high.\r\n");
+        }
+        else if(guess < realNum){
+            System.out.println("\r\nYour guess is too low.\r\n");
+        }
+        else{
+            System.out.println("Good job! You guessed my number!");
+            return true;
+        }
+
+        return false;
+    }
+
+    public static int getGuess(){
+        System.out.println("Take a guess. ");
+        return sc.nextInt();
+    }
+
+    public static boolean playAgain(){
+        System.out.println("\r\nWould you like to play again? (y or n): ");
+        String answer = sc.next();
+
+        if(answer.equals("y")){
+            return true;
+        }
+
+        return false;
+    }
+
     public static void startGame() throws Exception{
         int numTries = 0;
 
-        Random random = new Random();
-        int randomNumber = random.nextInt(20);
+        int randomNumber = generateRandom();
 
-        System.out.println("Hello! What is your name? ");
-
-        Scanner sc = new Scanner(System.in);
         String name = "";
 
         try {
-            name = sc.nextLine();
+            name = getName();
         }
         catch(Exception ex){
             System.out.println(ex);
         }
 
         System.out.println(String.format("\r\n\r\nWell, %s, I am thinking of a number between 1 and 20.", name));
-        System.out.println("\r\n\r\nTake a guess. ");
+//        System.out.println("\r\n\r\nTake a guess. ");
 
         int guess = -1;
 
-        while(numTries < 6){
+        while(true){
             try{
-                guess = sc.nextInt();
+                guess = getGuess();
             }
             catch(Exception ex){
                 System.out.println(ex);
                 break;
             }
 
-            if(guess > randomNumber){
-                System.out.println("\r\nYour guess is too high.\r\n");
-                System.out.println("Take a guess. ");
-            }
-            else if(guess < randomNumber){
-                System.out.println("\r\nYour guess is too low.\r\n");
-                System.out.println("Take a guess. ");
-            }
-            else if(guess == randomNumber){
-                System.out.println(String.format("Good job, %s! You guessed my number in %o guesses!", name, numTries + 1));
-                System.out.println("\r\nWould you like to play again? (y or n): ");
+            if(feedback(guess, randomNumber)){
+               if(!playAgain()){
+                   break;
+               }
 
-                String playAgain = "";
-
-                try{
-                    playAgain = sc.next();
-                }
-                catch(Exception ex){
-                    System.out.println(ex);
-                }
-
-                if(playAgain == "n"){
-                    System.exit(0);
-                }
-                else if(playAgain == "y"){
-                    startGame();
-                }
-                else{
-                    System.exit(0);
-                }
+               randomNumber = generateRandom();
+               numTries = 0;
             }
+            
             ++numTries;
         }
     }
