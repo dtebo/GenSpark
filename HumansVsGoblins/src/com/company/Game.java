@@ -4,6 +4,15 @@ public class Game {
     public void Start(){
         Land land = new Land();
 //        land.randomizeBoard();
-        land.draw();
+
+        Human human = new Human();
+
+        land.draw(human.getPosition());
+
+        human.move("n");
+
+        land.draw(human.getPosition());
+
+
     }
 }

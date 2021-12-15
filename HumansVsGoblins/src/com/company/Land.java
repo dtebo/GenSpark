@@ -10,16 +10,16 @@ public class Land {
             3 = Drop,
             4 = Treasure
      */
-    private static int[][] board = {{0,0,1,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,0,0,0,2,0,0,0},
-                                    {0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,2,0,0,0,0,0,0},
+    private static int[][] board = {{0,0,0,0,0,0,0,0,0,0},
                                     {0,0,0,0,0,0,0,0,0,0},
                                     {0,0,0,0,0,0,0,0,0,0},
                                     {0,0,0,0,0,0,0,0,0,0},
-                                    {0,0,0,2,0,0,0,0,0,0},};
+                                    {0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0},
+                                    {0,0,0,0,0,0,0,0,0,0},};
 
     public Land() {
     }
@@ -33,12 +33,15 @@ public class Land {
         }
     }
 
-    public void draw(){
+    public void draw(int[] humanPosition){
         String land = "\u0841";
+
+        //Draw the human at its designated position
+        board[humanPosition[0]][humanPosition[1]] = 1;
 
         //Print the game board
         for(int i = 0; i <= this.board.length - 1; i++){
-            System.out.print(land);
+//            System.out.print(land);
             for(int j = 0; j <= this.board[i].length - 1; j++){
                 if(this.board[i][j] == 0){
                     System.out.print(land);
@@ -52,6 +55,15 @@ public class Land {
             }
             System.out.println();
         }
+
+        int[] prevPosition = humanPosition;
+
+        //Clear the previous position
+        board[prevPosition[0]][prevPosition[1]] = 0;
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
     }
 
     public static int[][] getBoard() {

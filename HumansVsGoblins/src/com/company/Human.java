@@ -2,7 +2,7 @@ package com.company;
 
 public class Human {
     private int Health = 100;
-    private int[] position = {0, 0};
+    private int[] position = {4, 0};
     public static String appearance = "\u1e24";
 
     public Human() {
@@ -15,16 +15,16 @@ public class Human {
     public void move(String direction){
         switch(direction){
             case "n":
-                position[1] = position[1] - 1;
+                position[0] = position[0] - 1;
                 break;
             case "s":
-                position[1] = position[1] + 1;
-                break;
-            case "e":
                 position[0] = position[0] + 1;
                 break;
+            case "e":
+                position[1] = position[1] + 1;
+                break;
             case "w":
-                position[0] = position[0] - 1;
+                position[1] = position[1] - 1;
                 break;
             default:
                 break;
