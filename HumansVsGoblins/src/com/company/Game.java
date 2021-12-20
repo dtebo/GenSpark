@@ -9,7 +9,7 @@ public class Game {
 
         land.draw(human.getPosition());
 
-        human.move("n");
+        human.move("e");
 
         land.draw(human.getPosition());
 
